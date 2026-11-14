@@ -180,7 +180,7 @@ changed in response.
 | Date | Phase | Feedback | Action |
 |---|---|---|---|
 | 2026-11-14 | 0A | Hand test: everything passed. | Q1 recorded as passed; Checkpoint 0A closed. |
-| 2026-11-14 | 0A | With "Show on all displays" on, the notch is always visible on the other (non-notch) screens; it should stay hidden there and appear only on hover. | Not an upstream option (upstream only hides in full screen). Logged in the parking lot; owner to choose when to schedule. |
+| 2026-11-14 | 0A | Notch should be visible on every display on the desktop, and hidden on a display while an app is full screen there (show on hover). First read wrongly as "always hide on non-notch displays". | Wrong change reverted (`6d2058c`). Default "Full screen behavior" set to "Hide for all apps" (`ca27972`). |
 
 ## Ideas parking lot
 
@@ -192,9 +192,3 @@ into the code.
 - Usage / plan-limit display for agents.
 - Per-project agent grouping.
 - Model/effort router integration (owner's separate project idea).
-- Hover-to-reveal notch on non-notch displays: with "Show on all displays"
-  on, keep the closed notch invisible on screens without a hardware notch
-  and show it only while the pointer is in the top-centre hover zone.
-  Upstream touch points: `BoringViewModel` (closed height / `hideOnClosed`),
-  `ContentView` hover handling, General settings toggle. Owner request
-  2026-11-14.
