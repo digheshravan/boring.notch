@@ -174,12 +174,17 @@ fork's `main` tracks upstream `main` (released code). Our work happens on
 Results of spikes as they come in. A spike that changes a decision gets a new
 ADR above; this log only records what was found.
 
-### Q1 — Sandbox off (ADR-003) · 2026-11-14 · in progress
+### Q1 — Sandbox off (ADR-003) · 2026-11-14 · passed
 - Sandbox flipped off in `boringNotch/boringNotch.entitlements`; app builds
   and the signed entitlements show `app-sandbox = false` with camera,
   calendars and Apple Events still present.
 - No upstream code depends on the sandbox container. Shelf files use
-  security-scoped bookmarks, which also work unsandboxed (to be confirmed by
-  hand).
-- Feature results: **pending owner's hand test** (checklist in PROGRESS.md,
-  2026-11-14 entry). Record per-feature pass/fail here when done.
+  security-scoped bookmarks, which also work unsandboxed (confirmed by hand).
+- Owner hand test on 2026-11-14 (signed build, team `5ZA2QGQH96`), all
+  **passed**: notch hover open/close, music controls (Apple Music / Spotify),
+  music sneak peek, lyrics, calendar, camera mirror, volume/brightness HUD
+  replacement, shelf drop in / drag out / survives restart / share, battery
+  indicator, lock screen, download indicator, launch at login, and the
+  installed Boring Notch unaffected.
+- Outcome: ADR-003 stands (sandbox off). No fallback to the XPC-helper
+  alternative needed.

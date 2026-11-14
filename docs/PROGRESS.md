@@ -5,12 +5,11 @@ top. Keep entries short and factual.
 
 ## Current status
 
-- **Phase:** 0A — Fork runs (code done; at Checkpoint 0A)
-- **Branch:** `phase-0-base` (local, not pushed)
-- **Last checkpoint passed:** none
-- **Next action:** owner runs the Checkpoint 0A hand test (2026-11-14 entry
-  below) and records Q1 results; then 0B
-- **Blocked on:** owner hand test
+- **Phase:** 0A done; 0B not started
+- **Branch:** `phase-0-base` (pushed to `origin`)
+- **Last checkpoint passed:** 0A (2026-11-14)
+- **Next action:** Phase 0B (project structure), when the owner starts it
+- **Blocked on:** nothing
 
 ## Session template (copy for each session)
 
@@ -57,10 +56,12 @@ Done:
 - Stable signing: app and XPC helper signed "Apple Development", team
   `5ZA2QGQH96` (owner's Personal Team), set in `MyNotch.xcconfig`. Verified
   with `codesign --verify --deep --strict` after a clean build.
+- Checkpoint 0A passed: owner ran the full hand test, everything passed.
 In progress:
-- Spike Q1 hand test (owner).
+- Nothing.
 Spike results (also recorded in DECISIONS.md):
-- Q1: builds and signs with sandbox off; feature results pending.
+- Q1: passed. Every upstream feature on the checklist works with the
+  sandbox off; ADR-003 stands.
 Files added / changed:
 - Added: `Configuration/MyNotch.xcconfig`, `NOTICE.md`, `CLAUDE.md`,
   `PROMPTS.md`, `docs/`.
@@ -149,7 +150,8 @@ changed in response.
 
 | Date | Phase | Feedback | Action |
 |---|---|---|---|
-| | | | |
+| 2026-11-14 | 0A | Hand test: everything passed. | Q1 recorded as passed; Checkpoint 0A closed. |
+| 2026-11-14 | 0A | With "Show on all displays" on, the notch is always visible on the other (non-notch) screens; it should stay hidden there and appear only on hover. | Not an upstream option (upstream only hides in full screen). Logged in the parking lot; owner to choose when to schedule. |
 
 ## Ideas parking lot
 
@@ -161,3 +163,9 @@ into the code.
 - Usage / plan-limit display for agents.
 - Per-project agent grouping.
 - Model/effort router integration (owner's separate project idea).
+- Hover-to-reveal notch on non-notch displays: with "Show on all displays"
+  on, keep the closed notch invisible on screens without a hardware notch
+  and show it only while the pointer is in the top-centre hover zone.
+  Upstream touch points: `BoringViewModel` (closed height / `hideOnClosed`),
+  `ContentView` hover handling, General settings toggle. Owner request
+  2026-11-14.
