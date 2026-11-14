@@ -2,8 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<!-- MYNOTCH: app sandbox off (ADR-003, spike Q1). The Agents module needs a Unix socket
+	     in ~/.mynotch and access to agent config files. Hardened Runtime stays on; the
+	     camera / calendars / apple-events entitlements below are still honoured. The
+	     sandbox-only keys (files.*, network.*, temporary-exception.*) are now inert and
+	     kept only to keep the upstream diff small. -->
 	<key>com.apple.security.app-sandbox</key>
-	<true/>
+	<false/>
 	<key>com.apple.security.automation.apple-events</key>
 	<true/>
 	<key>com.apple.security.device.camera</key>
