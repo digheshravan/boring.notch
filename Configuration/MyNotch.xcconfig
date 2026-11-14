@@ -1,0 +1,9 @@
+// MYNOTCH: The one place the app's name and identity live (ADR-010).
+//
+// Both targets (the app and its XPC helper) read these values through the
+// project-level build configuration. To rename the app, change the two lines
+// below, then also update MyNotchBrand in boringNotch/models/Constants.swift
+// (code-side names such as the logger subsystem and ~/.mynotch).
+
+MYNOTCH_APP_NAME = MyNotch
+MYNOTCH_BUNDLE_ID = com.shravandige.mynotch

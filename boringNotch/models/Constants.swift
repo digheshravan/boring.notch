@@ -18,6 +18,21 @@ let appVersion = "\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as
 let temporaryDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
 let spacing: CGFloat = 16
 
+// MYNOTCH: Code-side names for the fork (ADR-010). The bundle id and display
+// name live in Configuration/MyNotch.xcconfig; everything here is derived from
+// the running bundle or is a fixed MyNotch name.
+enum MyNotchBrand {
+    /// Display name shown to the user.
+    static let appName = "MyNotch"
+    /// os.Logger subsystem for all MyNotch code (one category per module).
+    static let loggerSubsystem = "com.mynotch"
+    /// Folder for MyNotch runtime files (socket, hook client, logs).
+    static let supportDirectoryName = ".mynotch"
+    /// Mach service name of the embedded XPC helper. Matches the helper's
+    /// PRODUCT_BUNDLE_IDENTIFIER, "$(MYNOTCH_BUNDLE_ID).XPCHelper".
+    static let xpcHelperServiceName = "\(Bundle.main.bundleIdentifier ?? "com.shravandige.mynotch").XPCHelper"
+}
+
 struct CustomVisualizer: Codable, Hashable, Equatable, Defaults.Serializable {
     let UUID: UUID
     var name: String
