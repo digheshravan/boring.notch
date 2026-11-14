@@ -215,11 +215,3 @@ extension Defaults.Keys {
 
     static let didClearLegacyURLCacheV1 = Key<Bool>("didClearLegacyURLCache_v1", default: false)
 }
-
-// MYNOTCH: settings added by the fork. Keys are prefixed "mynotch." so they
-// never collide with upstream keys.
-extension Defaults.Keys {
-    /// On displays without a hardware notch, keep the closed notch invisible
-    /// and reveal it only on hover (owner request 2026-11-14).
-    static let mynotchHideOnNonNotchDisplays = Key<Bool>("mynotch.hideOnNonNotchDisplays", default: true)
-}
