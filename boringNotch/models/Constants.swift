@@ -193,7 +193,7 @@ extension Defaults.Keys {
     static let autoScrollToNextEvent = Key<Bool>("autoScrollToNextEvent", default: true)
     
     // MARK: Fullscreen Media Detection
-    static let hideNotchOption = Key<HideNotchOption>("hideNotchOption", default: .nowPlayingOnly)
+    static let hideNotchOption = Key<HideNotchOption>("hideNotchOption", default: .always) // MYNOTCH: hide over any full-screen app by default (owner request; upstream: .nowPlayingOnly)
     
     // MARK: Media Controller
     static let mediaController = Key<MediaControllerType>("mediaController", default: defaultMediaController)

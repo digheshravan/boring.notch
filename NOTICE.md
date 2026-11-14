@@ -54,6 +54,11 @@ MyNotch is not affiliated with or endorsed by TheBoredTeam.
 - `boringNotch/boringNotch.entitlements`: `com.apple.security.app-sandbox`
   set to false. Other entitlements unchanged.
 
+**Hide over full-screen apps by default (owner request)**
+- `boringNotch/models/Constants.swift`: default of `hideNotchOption`
+  ("Full screen behavior") changed from "Hide for media app only" to
+  "Hide for all apps".
+
 **Documentation**
 - Added `CLAUDE.md`, `PROMPTS.md`, `docs/` (MyNotch planning set) and this
   file.

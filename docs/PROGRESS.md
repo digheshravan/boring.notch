@@ -35,6 +35,35 @@ Next:
 
 ## Sessions
 
+### 2026-11-14 — Pre-0B — Notch hides over full-screen apps on every display
+Owner request: notch visible on every display on the normal desktop
+(MacBook and extended monitor), hidden on a display while an app is full
+screen there, shown on hover.
+Done:
+- First attempt misread the request (hid the notch on non-notch displays
+  all the time); reverted in `6d2058c`.
+- Upstream already supports the wanted behaviour through Settings > Media >
+  "Full screen behavior". Its default, "Hide for media app only", only hides
+  when the full-screen app is the music source. MyNotch's default is now
+  "Hide for all apps". One-word change, tagged.
+- Built, relaunched; external display in a full-screen browser shows no
+  notch bar.
+Upstream files touched (tagged // MYNOTCH:):
+- `boringNotch/models/Constants.swift`
+How to test by hand:
+1. Settings > General: "Show on all displays" on.
+2. Normal desktop: notch visible on the MacBook and on the external monitor.
+3. Make any app full screen on the external monitor (green button): the
+   notch disappears there; hover the top centre: it opens; move away: it
+   hides again. The MacBook screen still shows its notch.
+4. Leave full screen: the notch comes back on the external monitor.
+5. Repeat on the MacBook screen with a full-screen app.
+6. Settings > Media > "Full screen behavior" shows "Hide for all apps".
+Known issues:
+- Upstream marks full-screen detection as Beta.
+- Upstream draws a 1-pixel black line where the hidden notch sits on a
+  non-notch display.
+
 ### 2026-11-14 — Phase 0A — Fork runs under the MyNotch identity
 Done:
 - Forked to `digheshravan/boring.notch`; repo set up in this folder with
