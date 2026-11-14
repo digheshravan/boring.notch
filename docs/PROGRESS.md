@@ -35,6 +35,35 @@ Next:
 
 ## Sessions
 
+### 2026-11-14 — Pre-0B — Hide the notch on non-notch displays until hover
+Owner asked for this before 0B (feedback log, 2026-11-14).
+Done:
+- New setting `mynotch.hideOnNonNotchDisplays` (default on) with a toggle in
+  Settings > General: "Hide on displays without a notch until hovered".
+- On screens without a hardware notch, the closed notch now has zero height
+  (same mechanism upstream uses to hide in full screen). A thin invisible
+  hover strip remains, so hovering the top centre still opens the notch.
+- Built, relaunched; screenshot of the external display (S22C170) shows the
+  black pill gone. Built-in display unchanged.
+Upstream files touched (tagged // MYNOTCH:):
+- `boringNotch/models/Constants.swift`, `boringNotch/models/BoringViewModel.swift`,
+  `boringNotch/components/Settings/SettingsView.swift`
+How to test by hand:
+1. Settings > General: "Show on all displays" on; new toggle on (default).
+2. External screen: no black bar at the top centre.
+3. Move the pointer to the top centre of the external screen: the notch
+   opens after the usual hover delay; move away: it closes and disappears.
+4. Built-in screen: notch looks and works as before.
+5. Turn the toggle off: the black bar comes back on the external screen
+   straight away, without restarting.
+6. Play music: on the external screen there is no closed music bar or sneak
+   peek while hidden (expected; hovering opens the full notch).
+Known issues:
+- Upstream draws a 1-pixel black line at the top of the hidden notch; it can
+  show against a light menu bar.
+- Revealing depends on "Open notch on hover" (on by default). With it off,
+  the hidden notch opens only by clicking the invisible strip.
+
 ### 2026-11-14 — Phase 0A — Fork runs under the MyNotch identity
 Done:
 - Forked to `digheshravan/boring.notch`; repo set up in this folder with
@@ -151,7 +180,7 @@ changed in response.
 | Date | Phase | Feedback | Action |
 |---|---|---|---|
 | 2026-11-14 | 0A | Hand test: everything passed. | Q1 recorded as passed; Checkpoint 0A closed. |
-| 2026-11-14 | 0A | With "Show on all displays" on, the notch is always visible on the other (non-notch) screens; it should stay hidden there and appear only on hover. | Not an upstream option (upstream only hides in full screen). Logged in the parking lot; owner to choose when to schedule. |
+| 2026-11-14 | 0A | With "Show on all displays" on, the notch is always visible on the other (non-notch) screens; it should stay hidden there and appear only on hover. | Not an upstream option (upstream only hides in full screen). Owner chose "before 0B"; built as setting "Hide on displays without a notch until hovered" (default on). |
 
 ## Ideas parking lot
 
@@ -163,9 +192,3 @@ into the code.
 - Usage / plan-limit display for agents.
 - Per-project agent grouping.
 - Model/effort router integration (owner's separate project idea).
-- Hover-to-reveal notch on non-notch displays: with "Show on all displays"
-  on, keep the closed notch invisible on screens without a hardware notch
-  and show it only while the pointer is in the top-centre hover zone.
-  Upstream touch points: `BoringViewModel` (closed height / `hideOnClosed`),
-  `ContentView` hover handling, General settings toggle. Owner request
-  2026-11-14.

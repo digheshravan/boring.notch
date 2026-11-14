@@ -54,6 +54,16 @@ MyNotch is not affiliated with or endorsed by TheBoredTeam.
 - `boringNotch/boringNotch.entitlements`: `com.apple.security.app-sandbox`
   set to false. Other entitlements unchanged.
 
+**Hide until hover on displays without a notch (owner request)**
+- `boringNotch/models/Constants.swift`: new setting
+  `mynotch.hideOnNonNotchDisplays` (default on), in its own `Defaults.Keys`
+  extension.
+- `boringNotch/models/BoringViewModel.swift`: the closed notch is hidden on
+  screens without a hardware notch when the setting is on, reusing
+  upstream's full-screen hiding (hover still opens the notch).
+- `boringNotch/components/Settings/SettingsView.swift`: toggle "Hide on
+  displays without a notch until hovered" in Settings > General.
+
 **Documentation**
 - Added `CLAUDE.md`, `PROMPTS.md`, `docs/` (MyNotch planning set) and this
   file.

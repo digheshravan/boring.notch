@@ -86,11 +86,21 @@ class BoringViewModel: NSObject, ObservableObject {
         let fullscreenStatusPublisher = detector.$fullscreenStatus
             .removeDuplicates()
 
+        // MYNOTCH: setting "hide on displays without a notch until hovered"
+        let hideOnNonNotchPublisher = Defaults
+            .publisher(.mynotchHideOnNonNotchDisplays)
+            .map(\.newValue)
+            .removeDuplicates()
+
         // Combine all three: screen UUID, fullscreen status, and enabled setting
-        Publishers.CombineLatest3(screenPublisher, fullscreenStatusPublisher, enabledPublisher)
-            .map { screenUUID, fullscreenStatus, enabled in
+        // MYNOTCH: CombineLatest4 adds the non-notch setting. Hiding sets the
+        // closed height to 0 on screens without a notch; ContentView keeps a
+        // thin hover strip, so hovering still opens the notch.
+        Publishers.CombineLatest4(screenPublisher, fullscreenStatusPublisher, enabledPublisher, hideOnNonNotchPublisher)
+            .map { screenUUID, fullscreenStatus, enabled, hideOnNonNotch in
                 let isFullscreen = fullscreenStatus[screenUUID] ?? false
-                return enabled && isFullscreen
+                let hasHardwareNotch = (NSScreen.screen(withUUID: screenUUID)?.safeAreaInsets.top ?? 0) > 0
+                return (enabled && isFullscreen) || (hideOnNonNotch && !hasHardwareNotch)
             }
             .removeDuplicates()
             .receive(on: RunLoop.main)

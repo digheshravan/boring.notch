@@ -183,6 +183,10 @@ struct GeneralSettings: View {
                 Defaults.Toggle(key: .automaticallySwitchDisplay) {
                     Text("Automatically switch displays")
                 }
+                // MYNOTCH: hide-until-hover on displays without a hardware notch
+                Defaults.Toggle(key: .mynotchHideOnNonNotchDisplays) {
+                    Text("Hide on displays without a notch until hovered")
+                }
                     .onChange(of: automaticallySwitchDisplay) {
                         NotificationCenter.default.post(
                             name: Notification.Name.automaticallySwitchDisplayChanged, object: nil)
