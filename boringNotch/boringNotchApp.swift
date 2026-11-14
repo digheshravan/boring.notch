@@ -21,8 +21,9 @@ struct DynamicNotchApp: App {
     let updaterController: SPUStandardUpdaterController
 
     init() {
+        // MYNOTCH: never start Sparkle; the upstream feed would replace MyNotch with boring.notch (ADR-008)
         updaterController = SPUStandardUpdaterController(
-            startingUpdater: true, updaterDelegate: nil, userDriverDelegate: nil)
+            startingUpdater: false, updaterDelegate: nil, userDriverDelegate: nil)
 
         // Initialize the settings window controller with the updater controller
         SettingsWindowController.shared.setUpdaterController(updaterController)
@@ -36,7 +37,7 @@ struct DynamicNotchApp: App {
                 }
             }
             .keyboardShortcut(KeyEquivalent(","), modifiers: .command)
-            CheckForUpdatesView(updater: updaterController.updater)
+            // MYNOTCH: "Check for Updates…" removed; no update feed in the fork (ADR-008)
             Divider()
             Button("Restart Boring Notch") {
                 ApplicationRelauncher.restart()

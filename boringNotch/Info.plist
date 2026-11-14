@@ -7,14 +7,10 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-	<key>SUEnableDownloaderService</key>
-	<true/>
-	<key>SUEnableInstallerLauncherService</key>
-	<true/>
-	<key>SUFeedURL</key>
-	<string>https://TheBoredTeam.github.io/boring.notch/appcast.xml</string>
-	<key>SUPublicEDKey</key>
-	<string>B1Y47t8C/v8ImurYA+9arEsuCrpxwJSviekiflMElbI=</string>
+	<!-- MYNOTCH: Sparkle disabled (ADR-008). Upstream feed URL, signing key and
+	     sandboxed-installer keys removed so the fork can never pull boring.notch builds. -->
+	<key>SUEnableAutomaticChecks</key>
+	<false/>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict/>

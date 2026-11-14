@@ -865,7 +865,7 @@ struct About: View {
                     Text("Version info")
                 }
 
-                UpdaterSettingsView(updater: updaterController.updater)
+                // MYNOTCH: "Software updates" toggles removed; no update feed in the fork (ADR-008)
 
                 HStack(spacing: 30) {
                     Spacer(minLength: 0)
@@ -903,7 +903,7 @@ struct About: View {
             //                openWindow(id: "onboarding")
             //            }
             //            .controlSize(.extraLarge)
-            CheckForUpdatesView(updater: updaterController.updater)
+            // MYNOTCH: "Check for Updates…" removed; no update feed in the fork (ADR-008)
         }
         .navigationTitle("About")
     }

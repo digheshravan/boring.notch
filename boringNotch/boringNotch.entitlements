@@ -25,10 +25,6 @@
 		<string>com.spotify.client</string>
 		<string>com.apple.Music</string>
 	</array>
-	<key>com.apple.security.temporary-exception.mach-lookup.global-name</key>
-	<array>
-		<string>$(PRODUCT_BUNDLE_IDENTIFIER)-spks</string>
-		<string>$(PRODUCT_BUNDLE_IDENTIFIER)-spki</string>
-	</array>
+	<!-- MYNOTCH: Sparkle installer mach-lookup exceptions removed; updater disabled (ADR-008) -->
 </dict>
 </plist>
