@@ -108,16 +108,18 @@ echo '<json>' | ~/.mynotch/bin/notch-hook --agent claude-code
 If a build fails, read the full error, fix the cause, rebuild. Do not paper
 over errors with `// swiftlint:disable`, force unwraps, or deleted code.
 
-## Facts about the upstream codebase (verified 2026-11-14, v2.7.3, `main`)
+## Facts about the upstream codebase (verified 2026-11-14, v2.7.3, `main`; re-checked against the checkout in Phase 0A)
 
 - Deployment target macOS 14.0; **building needs macOS 15.6+ and Xcode 26+**.
-- Two targets: `boringNotch` (app, **sandboxed**) and `BoringNotchXPCHelper`
-  (unsandboxed XPC service: accessibility + brightness).
+  Confirmed building on macOS 27.2 / Xcode 27.2.
+- Two targets: `boringNotch` (app; sandboxed upstream, **sandbox off in the
+  fork since 0A**, ADR-003) and `BoringNotchXPCHelper` (unsandboxed XPC
+  service: accessibility + brightness). Scheme name: `boringNotch`.
 - No test target and no shared schemes.
 - Most source folders are classic Xcode groups: **a new `.swift` file is not
-  compiled unless it is registered in `project.pbxproj`.** Only
-  `boringNotch/private` is a synced folder
-  (`PBXFileSystemSynchronizedRootGroup`). We add `boringNotch/NotchModules`
+  compiled unless it is registered in `project.pbxproj`.** Synced folders
+  (`PBXFileSystemSynchronizedRootGroup`): `boringNotch/private` and the
+  whole `BoringNotchXPCHelper/` folder. We add `boringNotch/NotchModules`
   as a second synced folder once (Phase 0), then never hand-edit the pbxproj
   for new files again.
 - Settings are stored with the `Defaults` package; keys live in
@@ -133,9 +135,17 @@ over errors with `// swiftlint:disable`, force unwraps, or deleted code.
 - Share menu services (AirDrop, and any app that adds itself to the share
   menu): `boringNotch/components/Shelf/Services/QuickShareService.swift` and
   `ShareServiceFinder.swift`.
-- Sparkle auto-update points at the upstream feed (`SUFeedURL` in
-  `boringNotch/Info.plist`). **It must be disabled in the fork** or it will
-  replace MyNotch with upstream builds.
+- Sparkle auto-update pointed at the upstream feed. **Disabled in the fork
+  in 0A** (never started, feed removed, UI removed); the package is still
+  linked. Do not re-enable it until MyNotch has its own feed.
+- Identity: the app name and bundle id live in `Configuration/MyNotch.xcconfig`
+  (project-level base config); code-side names in `MyNotchBrand`
+  (`boringNotch/models/Constants.swift`). The XPC helper's id is
+  `<bundle id>.XPCHelper` and the client derives it at runtime.
+- Upstream has no `os.Logger` usage; MyNotch code uses subsystem
+  `MyNotchBrand.loggerSubsystem` (`com.mynotch`).
+- Debug builds are ad-hoc signed until a signing team is set; Hardened
+  Runtime is not applied to ad-hoc Debug builds.
 
 ## Code style
 

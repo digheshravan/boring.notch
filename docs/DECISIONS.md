@@ -168,3 +168,18 @@ fork's `main` tracks upstream `main` (released code). Our work happens on
 | Q9 | Antigravity hook config location, payload and decision format on the owner's version | later |
 | Q10 | Cursor: does missing hook output fall back to Cursor's prompt on the owner's version? | later |
 | Q11 | Notification mirror: Accessibility vs database on the owner's macOS | later |
+
+## Spike log
+
+Results of spikes as they come in. A spike that changes a decision gets a new
+ADR above; this log only records what was found.
+
+### Q1 — Sandbox off (ADR-003) · 2026-11-14 · in progress
+- Sandbox flipped off in `boringNotch/boringNotch.entitlements`; app builds
+  and the signed entitlements show `app-sandbox = false` with camera,
+  calendars and Apple Events still present.
+- No upstream code depends on the sandbox container. Shelf files use
+  security-scoped bookmarks, which also work unsandboxed (to be confirmed by
+  hand).
+- Feature results: **pending owner's hand test** (checklist in PROGRESS.md,
+  2026-11-14 entry). Record per-feature pass/fail here when done.

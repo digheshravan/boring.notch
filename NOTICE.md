@@ -45,6 +45,10 @@ MyNotch is not affiliated with or endorsed by TheBoredTeam.
 - `boringNotch/boringNotch.entitlements`: Sparkle installer mach-lookup
   exceptions removed.
 
+**App sandbox off (ADR-003)**
+- `boringNotch/boringNotch.entitlements`: `com.apple.security.app-sandbox`
+  set to false. Other entitlements unchanged.
+
 **Documentation**
 - Added `CLAUDE.md`, `PROMPTS.md`, `docs/` (MyNotch planning set) and this
   file.
