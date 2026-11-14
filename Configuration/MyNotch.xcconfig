@@ -7,3 +7,11 @@
 
 MYNOTCH_APP_NAME = MyNotch
 MYNOTCH_BUNDLE_ID = com.shravandige.mynotch
+
+// Signing. A stable identity keeps macOS permission grants (Accessibility,
+// Camera, Calendar) across rebuilds; ad-hoc signatures change every build.
+// The team ID is not a secret (it is embedded in every signed app).
+// Building without an Apple account: set the team to empty and the identity
+// to "-" (ad-hoc), as upstream does.
+MYNOTCH_DEVELOPMENT_TEAM = 5ZA2QGQH96
+MYNOTCH_CODE_SIGN_IDENTITY = Apple Development

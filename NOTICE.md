@@ -35,6 +35,11 @@ MyNotch is not affiliated with or endorsed by TheBoredTeam.
 - `boringNotch/XPCHelperClient/XPCHelperClient.swift`: helper service name is
   derived from the app's bundle id instead of being hard-coded.
 
+**Stable signing**
+- `Configuration/MyNotch.xcconfig`: development team and signing identity.
+- `project.pbxproj`: both targets read `DEVELOPMENT_TEAM` and the macOS
+  `CODE_SIGN_IDENTITY` from the xcconfig instead of ad-hoc signing.
+
 **Auto-update disabled (ADR-008)**
 - `boringNotch/boringNotchApp.swift`: Sparkle updater is never started;
   "Check for Updates…" removed from the menu bar menu.

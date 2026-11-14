@@ -144,8 +144,11 @@ over errors with `// swiftlint:disable`, force unwraps, or deleted code.
   `<bundle id>.XPCHelper` and the client derives it at runtime.
 - Upstream has no `os.Logger` usage; MyNotch code uses subsystem
   `MyNotchBrand.loggerSubsystem` (`com.mynotch`).
-- Debug builds are ad-hoc signed until a signing team is set; Hardened
-  Runtime is not applied to ad-hoc Debug builds.
+- Signing: team and identity come from `Configuration/MyNotch.xcconfig`
+  (owner's Personal Team, "Apple Development"). Build from the command line
+  with `-allowProvisioningUpdates` the first time on a new machine. After a
+  signing change, do a clean build or the embedded XPC helper keeps its old
+  signature. The helper target has no Hardened Runtime (upstream setting).
 
 ## Code style
 

@@ -10,8 +10,7 @@ top. Keep entries short and factual.
 - **Last checkpoint passed:** none
 - **Next action:** owner runs the Checkpoint 0A hand test (2026-11-14 entry
   below) and records Q1 results; then 0B
-- **Blocked on:** owner hand test; owner adding an Apple ID in Xcode for a
-  stable signing identity
+- **Blocked on:** owner hand test
 
 ## Session template (copy for each session)
 
@@ -55,9 +54,11 @@ Done:
 - Disabled Sparkle (never started, feed removed, menu and settings UI removed).
 - Added `NOTICE.md`.
 - Sandbox off; rebuilt; entitlements verified in the signed app.
+- Stable signing: app and XPC helper signed "Apple Development", team
+  `5ZA2QGQH96` (owner's Personal Team), set in `MyNotch.xcconfig`. Verified
+  with `codesign --verify --deep --strict` after a clean build.
 In progress:
 - Spike Q1 hand test (owner).
-- Stable signing identity: needs the owner's Apple ID in Xcode first.
 Spike results (also recorded in DECISIONS.md):
 - Q1: builds and signs with sandbox off; feature results pending.
 Files added / changed:
@@ -108,11 +109,13 @@ How to test by hand (Checkpoint 0A + spike Q1):
    - [ ] Real Boring Notch: start it again afterwards; its settings and
          shelf are unchanged
 Known issues:
-- Debug builds are ad-hoc signed (no certificate yet), so macOS may ask
-  for Accessibility / Camera / Calendar again after each rebuild. Fixed by
-  the stable-signing task once an Apple ID is added in Xcode.
-- Hardened Runtime is not applied to ad-hoc Debug builds (same as
-  upstream).
+- After changing signing settings, do a clean build (Xcode: Product >
+  Clean Build Folder, Shift+Cmd+K); an incremental build kept the old
+  helper signature inside the app.
+- The XPC helper target has no Hardened Runtime (upstream setting; only
+  matters for notarised releases).
+- Permissions granted to earlier ad-hoc builds do not carry over; grant
+  them once more to the signed build.
 - In-app text still says "Boring Notch" / "boring.notch" in places (menu
   bar menu title, "Restart Boring Notch", Settings window title, onboarding
   text; about 108 matches in Swift files). Only the bundle identity was in
@@ -124,10 +127,8 @@ Known issues:
   is sandboxed and stores its data in its container.
 - Sandbox-only entitlement keys left in place (inert) to keep the diff small.
 Next:
-- Owner: hand test above, record Q1 results in DECISIONS.md spike log; add
-  Apple ID in Xcode > Settings > Accounts.
-- Claude Code: set the signing team (stable identity), then Phase 0B after
-  Checkpoint 0A is approved.
+- Owner: hand test above; record Q1 results in DECISIONS.md spike log.
+- Claude Code: Phase 0B after Checkpoint 0A is approved.
 
 ### 2026-11-14 — Planning
 Done:
